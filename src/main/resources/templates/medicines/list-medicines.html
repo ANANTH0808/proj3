@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List of Medicines</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+astanza {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="mb-3">
+        <a href="/" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back</a>
+    </div>
+    <h2 class="text-center">Medicines List</h2>
+    <div class="d-flex justify-content-between mb-3">
+        <a href="/medicines/addMedicine" class="btn btn-success">Add Medicine</a>
+    </div>
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Company</th>
+            <th>Manufacture Date</th>
+            <th>Expiry Date</th>
+            <th>Type</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="medicine : ${medicines}">
+            <td th:text="${medicine.id}"></td>
+            <td th:text="${medicine.medicineName}"></td>
+            <td th:text="${medicine.companyName}"></td>
+            <td th:text="${#dates.format(medicine.manufactureDate, 'yyyy-MM-dd')}"></td>
+            <td th:text="${#dates.format(medicine.expiryDate, 'yyyy-MM-dd')}"></td>
+            <td th:text="${medicine.type}"></td>
+            <td>
+                <a th:href="@{'/medicines/showFormForUpdate'(medicineId=${medicine.id})}" class="btn btn-info btn-sm">Edit</a>
+                <a th:href="@{'/medicines/delete'(medicineId=${medicine.id})}" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>

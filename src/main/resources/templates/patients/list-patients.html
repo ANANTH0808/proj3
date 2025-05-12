@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Patients List</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+</head>
+<body>
+<div class="container mt-5">
+    <div class="mb-3">
+        <a href="/" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back</a>
+    </div>
+    <h2>Patients List</h2>
+    <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Height (cm)</th>
+            <th>Weight (kg)</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="patient : ${patients}">
+            <td th:text="${patient.id}">1</td>
+            <td th:text="${patient.name}">Patient Name</td>
+            <td th:text="${patient.age}">Age</td>
+            <td th:text="${patient.gender}">Gender</td>
+            <td th:text="${patient.height}">170.5</td>
+            <td th:text="${patient.weight}">70.2</td>
+            <td>
+                <a th:href="@{/patients/showFormForUpdate(patientId=${patient.id})}" class="btn btn-warning btn-sm">Edit</a>
+                <a th:href="@{/patients/delete(patientId=${patient.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?');">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/patients/add}" class="btn btn-primary">Add New Patient</a>
+</div>
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>

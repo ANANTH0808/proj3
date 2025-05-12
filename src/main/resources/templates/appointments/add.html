@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title th:text="${appointment.id != null} ? 'Edit Appointment' : 'Add Appointment'"></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+</head>
+<body>
+<div class="container mt-5">
+    <div class="mb-3">
+        <a href="/appointments/list" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back</a>
+    </div>
+    <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+    <h2 th:text="${appointment.id != null} ? 'Edit Appointment' : 'Add New Appointment'"></h2>
+    <form th:action="@{/appointments/save}" th:object="${appointment}" method="post">
+        <input type="hidden" th:field="*{id}" />
+        <div class="form-group">
+            <label for="patient">Patient</label>
+            <select id="patient" th:field="*{patient}" class="form-control" required>
+                <option value="" disabled selected>Select patient</option>
+                <option th:each="patient : ${patients}"
+                        th:value="${patient.id}"
+                        th:text="${patient.name}"
+                        th:selected="${appointment.patient != null and appointment.patient.id == patient.id}"></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="doctor">Doctor</label>
+            <select id="doctor" th:field="*{doctor}" class="form-control" required onchange="updateAvailability()">
+                <option value="" disabled selected>Select doctor</option>
+                <option th:each="doctor : ${doctors}"
+                        th:value="${doctor.id}"
+                        th:text="${doctor.name}"
+                        th:data-dates="${doctor.availableDates}"
+                        th:data-slots="${doctor.availableSlots}"
+                        th:selected="${appointment.doctor != null and appointment.doctor.id == doctor.id}"></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="appointmentDate">Appointment Date</label>
+            <select id="appointmentDate" th:field="*{appointmentDate}" class="form-control" required>
+                <option value="" disabled selected>Select date</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="timeSlot">Time Slot</label>
+            <select id="timeSlot" th:field="*{timeSlot}" class="form-control" required>
+                <option value="" disabled selected>Select time slot</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Save Appointment</button>
+        <a href="/appointments/list" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<script>
+    function updateAvailability() {
+        const doctorSelect = document.getElementById('doctor');
+        const dateSelect = document.getElementById('appointmentDate');
+        const slotSelect = document.getElementById('timeSlot');
+
+        // Clear existing options
+        dateSelect.innerHTML = '<option value="" disabled selected>Select date</option>';
+        slotSelect.innerHTML = '<option value="" disabled selected>Select time slot</option>';
+
+        const selectedOption = doctorSelect.options[doctorSelect.selectedIndex];
+        const dates = selectedOption.getAttribute('data-dates');
+        const slots = selectedOption.getAttribute('data-slots');
+
+        if (dates) {
+            dates.split(',').forEach(date => {
+                const option = document.createElement('option');
+                option.value = date;
+                option.text = date;
+                dateSelect.appendChild(option);
+            });
+        }
+
+        if (slots) {
+            slots.split(',').forEach(slot => {
+                const option = document.createElement('option');
+                option.value = slot;
+                option.text = slot;
+                slotSelect.appendChild(option);
+            });
+        }
+    }
+
+    // Initialize availability for edit mode
+    document.addEventListener('DOMContentLoaded', () => {
+        const doctorSelect = document.getElementById('doctor');
+        if (doctorSelect.value) {
+            updateAvailability();
+        }
+    });
+</script>
+</body>
+</html>

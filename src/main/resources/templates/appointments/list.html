@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Appointments List</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+</head>
+<body>
+<div class="container mt-5">
+    <div class="mb-3">
+        <a href="/" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back</a>
+    </div>
+    <h2>Appointments List</h2>
+    <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Patient Name</th>
+            <th>Doctor Name</th>
+            <th>Date</th>
+            <th>Time Slot</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="appointment : ${appointments}">
+            <td th:text="${appointment.id}">1</td>
+            <td th:text="${appointment.patient.name}">Patient Name</td>
+            <td th:text="${appointment.doctor.name}">Doctor Name</td>
+            <td th:text="${appointment.appointmentDate}">2025-05-12</td>
+            <td th:text="${appointment.timeSlot}">10:00 AM - 10:30 AM</td>
+            <td>
+                <a th:href="@{/appointments/showFormForUpdate(appointmentId=${appointment.id})}" class="btn btn-warning btn-sm">Edit</a>
+                <a th:href="@{/appointments/delete(appointmentId=${appointment.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?');">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/appointments/add}" class="btn btn-primary">Add New Appointment</a>
+</div>
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>

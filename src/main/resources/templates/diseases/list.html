@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Diseases List</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+</head>
+<body>
+<div class="container mt-5">
+    <div class="mb-3">
+        <a href="/" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back</a>
+    </div>
+    <h2>Diseases List</h2>
+    <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Disease Name</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="disease : ${diseases}">
+            <td th:text="${disease.id}">1</td>
+            <td th:text="${disease.name}">Disease Name</td>
+            <td th:text="${disease.description}">Disease Description</td>
+            <td>
+                <a th:href="@{/diseases/showFormForUpdate(diseaseId=${disease.id})}" class="btn btn-warning btn-sm">Edit</a>
+                <a th:href="@{/diseases/delete(diseaseId=${disease.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?');">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/diseases/add}" class="btn btn-primary">Add New Disease</a>
+</div>
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>

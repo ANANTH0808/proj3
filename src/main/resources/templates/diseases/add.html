@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title th:text="${disease.id != null} ? 'Edit Disease' : 'Add Disease'"></title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+</head>
+<body>
+<div class="container mt-5">
+  <div class="mb-3">
+    <a href="/diseases/list" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back</a>
+  </div>
+  <h2 th:text="${disease.id != null} ? 'Edit Disease' : 'Add New Disease'"></h2>
+  <form th:action="@{/diseases/save}" th:object="${disease}" method="post">
+    <input type="hidden" th:field="*{id}" />
+    <div class="form-group">
+      <label for="name">Disease Name</label>
+      <input type="text" id="name" th:field="*{name}" class="form-control" placeholder="Enter disease name" required />
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea id="description" th:field="*{description}" class="form-control" placeholder="Enter description" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Save Disease</button>
+    <a href="/diseases/list" class="btn btn-secondary">Cancel</a>
+  </form>
+</div>
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Patient Management System</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <style>
+        body {
+            background: linear-gradient(135deg, #f4f7fa 0%, #e0e7ff 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+        }
+        .container {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            padding: 2rem;
+            margin-top: 3rem;
+            margin-bottom: 3rem;
+            max-width: 600px;
+        }
+        h2 {
+            color: #005f73;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+        .list-group-item {
+            background: linear-gradient(45deg, #0a9396, #94d2bd);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .list-group-item:hover {
+            background: linear-gradient(45deg, #087f8c, #80c4b7);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            color: #ffffff;
+            text-decoration: none;
+        }
+        .list-group-item::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.4s ease, height 0.4s ease;
+        }
+        .list-group-item:active::after {
+            width: 200px;
+            height: 200px;
+        }
+        @media (max-width: 576px) {
+            .container {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+            h2 {
+                font-size: 1.5rem;
+            }
+            .list-group-item {
+                font-size: 1rem;
+                padding: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Patient Management System</h2>
+    <div class="list-group">
+        <a href="/patients/list" class="list-group-item list-group-item-action">Manage Patients</a>
+        <a href="/doctors/list" class="list-group-item list-group-item-action">Manage Doctors</a>
+        <a href="/diseases/list" class="list-group-item list-group-item-action">Manage Diseases</a>
+        <a href="/medicines/list" class="list-group-item list-group-item-action">Manage Medicines</a>
+        <a href="/appointments/list" class="list-group-item list-group-item-action">Manage Appointments</a>
+    </div>
+</div>
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>
